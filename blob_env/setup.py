@@ -5,7 +5,6 @@ setup(name='blob_env',
       install_requires=[
           'gym'],
       packages=[
-          'blob_env',
-          'blob_env.envs',
+          'envs',
       ],  # And any other dependencies foo needs
       )
