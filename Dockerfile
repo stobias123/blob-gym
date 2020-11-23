@@ -1,4 +1,4 @@
-FROM gcr.io/kubeflow-images-public/tensorflow-2.1.0-notebook-cpu
+FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-2
 
 COPY . .
 RUN pip install -r requirements.txt
