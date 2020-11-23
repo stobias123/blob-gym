@@ -3,6 +3,7 @@ astunparse==1.6.3
 backcall==0.2.0
 cached-property==1.5.2
 cachetools==4.1.1
+kfp
 certifi==2020.11.8
 chardet==3.0.4
 imageio
