@@ -104,10 +104,8 @@ def train_eval(
   env = suite_gym.load('Blob2d-v1')
   
   tf_env = tf_py_environment.TFPyEnvironment(env)
-  eval_env = tf_py_environment.TFPyEnvironment(env)
 
   action_spec = tf_env.action_spec()
-  num_actions = action_spec.maximum - action_spec.minimum + 1
 
   fc_layer_params = (100,)
 
