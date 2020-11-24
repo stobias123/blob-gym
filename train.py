@@ -263,11 +263,6 @@ def main(_):
   logging.set_verbosity(logging.INFO)
   tf.compat.v1.enable_v2_behavior()
   gin.parse_config_files_and_bindings(FLAGS.gin_file, FLAGS.gin_param)
-  train_eval(FLAGS.root_dir, num_iterations=FLAGS.num_iterations)
-
-
-if __name__ == '__main__':
-  flags.mark_flag_as_required('root_dir')
   metadata = {
       'outputs': [{
           'type': 'tensorboard',
@@ -276,4 +271,9 @@ if __name__ == '__main__':
   }
   with open('/tmp/mlpipeline-ui-metadata.json', 'w') as f:
     json.dump(metadata, f)
+  train_eval(FLAGS.root_dir, num_iterations=FLAGS.num_iterations)
+
+
+if __name__ == '__main__':
+  flags.mark_flag_as_required('root_dir')
   app.run(main)
