@@ -268,7 +268,6 @@ def main(_):
 
 if __name__ == '__main__':
   flags.mark_flag_as_required('root_dir')
-  app.run(main)
   metadata = {
       'outputs': [{
           'type': 'tensorboard',
@@ -277,4 +276,4 @@ if __name__ == '__main__':
   }
   with open('/tmp/mlpipeline-ui-metadata.json', 'w') as f:
     json.dump(metadata, f)
-  
+  app.run(main)
