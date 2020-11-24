@@ -271,7 +271,7 @@ if __name__ == '__main__':
   metadata = {
       'outputs': [{
           'type': 'tensorboard',
-          'source': os.path.join(root_dir, 'train'),
+          'source': os.path.join(FLAGS.root_dir, 'train'),
       }]
   }
   with open('/mlpipeline-ui-metadata.json', 'w') as f:
