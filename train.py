@@ -38,7 +38,7 @@ register(
 
 flags.DEFINE_string('root_dir', os.getenv('TEST_UNDECLARED_OUTPUTS_DIR'),
                     'Root directory for writing logs/summaries/checkpoints.')
-flags.DEFINE_integer('num_iterations', 100000,
+flags.DEFINE_integer('num_iterations', 0,
                      'Total number train/eval iterations to perform.')
 flags.DEFINE_multi_string('gin_file', None, 'Paths to the gin-config files.')
 flags.DEFINE_multi_string('gin_param', None, 'Gin binding parameters.')
@@ -268,3 +268,11 @@ def main(_):
 if __name__ == '__main__':
   flags.mark_flag_as_required('root_dir')
   app.run(main)
+  metadata = {
+      'outputs': [{
+          'type': 'tensorboard',
+          'source': os.path.join(root_dir, 'train'),
+      }]
+  }
+  with open('/mlpipeline-ui-metadata.json', 'w') as f:
+    json.dump(metadata, f)
