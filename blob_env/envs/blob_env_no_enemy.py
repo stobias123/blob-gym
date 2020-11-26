@@ -33,8 +33,8 @@ class Blob:
         return self.x == other.x and self.y == other.y
 
     def action(self, choice):
-        '''
-        Gives us 5 total movement options. (0,1,2,3,4,5)
+        '''s
+        Gives us 5 total movement options. (0,1,2,3,4)
         '''
         if choice == 0:
             self.move(x=1, y=0)
@@ -73,7 +73,7 @@ class Blob:
         elif self.y > self.size-1:
             self.y = self.size-1
 
-class BlobEnv(gym.Env):
+class BlobEnvNoEnemy(gym.Env):
 
     metadata = {
         'render.modes': ['rgb_array']
