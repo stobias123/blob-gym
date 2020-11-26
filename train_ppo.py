@@ -98,7 +98,7 @@ def train_eval(
     # TODO(b/127576522): rename to policy_fc_layers.
     actor_fc_layers=(200, 100),
     value_fc_layers=(200, 100),
-    use_rnns=False,
+    use_rnns=True,
     # Params for collect
     num_environment_steps=25000000,
     collect_episodes_per_iteration=30,
@@ -111,8 +111,8 @@ def train_eval(
     num_eval_episodes=30,
     eval_interval=500,
     # Params for summaries and logging
-    train_checkpoint_interval=500,
-    policy_checkpoint_interval=500,
+    train_checkpoint_interval=1500,
+    policy_checkpoint_interval=1500,
     log_interval=50,
     summary_interval=50,
     summaries_flush_secs=1,
