@@ -91,9 +91,9 @@ class BlobEnv(gym.Env):
     RETURN_IMAGES = True
     MOVE_PENALTY = 1
     ENEMY_PENALTY = 300
-    FOOD_REWARD = 25
+    FOOD_REWARD = 50
     OBSERVATION_SPACE_VALUES = (SIZE, SIZE, 3)  # 4
-    ACTION_SPACE_SIZE = 9
+    ACTION_SPACE_SIZE = 9  
     PLAYER_N = 1  # player key in dict
     FOOD_N = 2  # food key in dict
     ENEMY_N = 3  # enemy key in dict
