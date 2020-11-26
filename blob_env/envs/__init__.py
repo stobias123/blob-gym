@@ -5,5 +5,5 @@ register(
     entry_point='blob_env.envs.blob_env:BlobEnv')
 
 register(
-    id='blob2d-noememies-v1',
+    id='blob2d-safe-v1',
     entry_point='blob_env.envs.blob_env:BlobEnvNoEnemy')

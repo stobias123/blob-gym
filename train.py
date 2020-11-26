@@ -36,9 +36,13 @@ from gym.envs.registration import register
 register(
     id='Blob2d-v1',
     entry_point='blob_env.envs.blob_env:BlobEnv')
+register(
+    id='blob2d-safe-v1',
+    entry_point='blob_env.envs.blob_env:BlobEnvNoEnemy')
 
 flags.DEFINE_string('root_dir', os.getenv('TEST_UNDECLARED_OUTPUTS_DIR'),
                     'Root directory for writing logs/summaries/checkpoints.')
+flags.DEFINE_string('env_name', 'blob2d-safe-v1', 'Name of an environment')
 flags.DEFINE_integer('num_iterations', 0,
                      'Total number train/eval iterations to perform.')
 flags.DEFINE_multi_string('gin_file', None, 'Paths to the gin-config files.')
@@ -49,7 +53,7 @@ FLAGS = flags.FLAGS
 @gin.configurable
 def train_eval(
     root_dir,
-    env_name='Blob2d-v1',
+    env_name='blob2d-safe-v1',
     num_iterations=100000,
     train_sequence_length=1,
     collect_steps_per_iteration=1,
@@ -263,15 +267,7 @@ def main(_):
   logging.set_verbosity(logging.INFO)
   tf.compat.v1.enable_v2_behavior()
   gin.parse_config_files_and_bindings(FLAGS.gin_file, FLAGS.gin_param)
-  metadata = {
-      'outputs': [{
-          'type': 'tensorboard',
-          'source': os.path.join(FLAGS.root_dir, 'train'),
-      }]
-  }
-  with open('/tmp/mlpipeline-ui-metadata.json', 'w') as f:
-    json.dump(metadata, f)
-  train_eval(FLAGS.root_dir, num_iterations=FLAGS.num_iterations)
+  train_eval(FLAGS.root_dir, num_iterations=FLAGS.num_iterations,env_name=FLAGS.env_name)
 
 
 if __name__ == '__main__':

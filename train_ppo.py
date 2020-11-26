@@ -49,6 +49,10 @@ register(
     id='Blob2d-v1',
     entry_point='blob_env.envs.blob_env:BlobEnv')
 
+register(
+    id='blob2d-safe-v1',
+    entry_point='blob_env.envs.blob_env:BlobEnvNoEnemy')
+
 from tf_agents.agents.ppo import ppo_clip_agent
 from tf_agents.drivers import dynamic_episode_driver
 from tf_agents.environments import parallel_py_environment
@@ -68,7 +72,7 @@ from tf_agents.utils import common
 
 flags.DEFINE_string('root_dir', os.getenv('TEST_UNDECLARED_OUTPUTS_DIR'),
                     'Root directory for writing logs/summaries/checkpoints.')
-flags.DEFINE_string('env_name', 'Blob2d-v1', 'Name of an environment')
+flags.DEFINE_string('env_name', 'blob2d-safe-v1', 'Name of an environment')
 flags.DEFINE_integer('replay_buffer_capacity', 1001,
                      'Replay buffer capacity per env.')
 flags.DEFINE_integer('num_parallel_environments', 30,
@@ -92,7 +96,7 @@ FLAGS = flags.FLAGS
 @gin.configurable
 def train_eval(
     root_dir,
-    env_name='Blob2d-v1',
+    env_name='blob2d-safe-v1',
     env_load_fn=suite_gym.load,
     random_seed=None,
     # TODO(b/127576522): rename to policy_fc_layers.

@@ -88,7 +88,7 @@ KERAS_LSTM_FUSED = 2
 @gin.configurable
 def train_eval(
     root_dir,
-    env_name='CartPole-v0',
+    env_name='blob2d-safe-v1',
     num_iterations=100000,
     train_sequence_length=1,
     # Params for QNetwork
@@ -109,7 +109,7 @@ def train_eval(
     # Params for train
     train_steps_per_iteration=1,
     batch_size=64,
-    learning_rate=4e-4,
+    learning_rate=5e-4,
     n_step_update=4,
     gamma=0.99,
     reward_scale_factor=1.0,
