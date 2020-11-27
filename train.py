@@ -30,16 +30,6 @@ from tf_agents.replay_buffers import tf_uniform_replay_buffer
 from tf_agents.trajectories import trajectory
 from tf_agents.utils import common
 
-from gym.envs.registration import register
-from gym.envs.registration import register
-
-register(
-    id='Blob2d-v1',
-    entry_point='blob_env.envs.blob_env:BlobEnv')
-register(
-    id='blob2d-safe-v1',
-    entry_point='blob_env.envs.blob_env:BlobEnvNoEnemy')
-
 flags.DEFINE_string('root_dir', os.getenv('TEST_UNDECLARED_OUTPUTS_DIR'),
                     'Root directory for writing logs/summaries/checkpoints.')
 flags.DEFINE_string('env_name', 'blob2d-safe-v1', 'Name of an environment')

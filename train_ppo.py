@@ -42,16 +42,6 @@ import gin
 import tensorflow as tf  # pylint: disable=g-explicit-tensorflow-version-import
 
 from blob_env.envs import *
-from gym.envs.registration import register
-from gym.envs.registration import register
-
-register(
-    id='Blob2d-v1',
-    entry_point='blob_env.envs.blob_env:BlobEnv')
-
-register(
-    id='blob2d-safe-v1',
-    entry_point='blob_env.envs.blob_env:BlobEnvNoEnemy')
 
 from tf_agents.agents.ppo import ppo_clip_agent
 from tf_agents.drivers import dynamic_episode_driver
