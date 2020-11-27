@@ -154,3 +154,85 @@ class BlobEnv(gym.Env):
         env = self.get_obs_array()
         img = Image.fromarray(env, 'RGB')  # reading to rgb. Apparently. Even tho color definitions are bgr. ???
         return img
+
+class BlobEnvNoEnemy(gym.Env):
+
+    metadata = {
+        'render.modes': ['rgb_array']
+    }
+    SIZE = 10
+    RETURN_IMAGES = True
+    MOVE_PENALTY = 1
+    ENEMY_PENALTY = 300
+    FOOD_REWARD = 50
+    OBSERVATION_SPACE_VALUES = (SIZE, SIZE, 3)  # 4
+    ACTION_SPACE_SIZE = 5
+    PLAYER_N = 1  # player key in dict
+    FOOD_N = 2  # food key in dict
+    ENEMY_N = 3  # enemy key in dict
+    # the dict! (colors)
+    d = {1: (255, 175, 0),
+         2: (0, 255, 0),
+         3: (0, 0, 255)}
+    
+    def __init__(self):
+        self.observation_space = spaces.Box(
+            0, 255, shape=(BlobEnv.SIZE, BlobEnv.SIZE, 3), dtype=np.uint8)
+        self.action_space = spaces.Discrete(BlobEnv.ACTION_SPACE_SIZE)
+        self._episode_ended = False
+        self._state = np.zeros((self.SIZE, self.SIZE, 3), dtype=np.uint8)
+
+    def reset(self):
+        self.player = Blob(self.SIZE)
+        self.food = Blob(self.SIZE)
+        while self.food == self.player:
+            self.food = Blob(self.SIZE)
+        self.enemy = Blob(self.SIZE)
+        while self.enemy == self.player or self.enemy == self.food:
+            self.enemy = Blob(self.SIZE)
+
+        self.episode_step = 0
+
+        return np.array(self._state)
+
+    def step(self, action):
+        self.episode_step += 1
+        self.player.action(action)
+
+        self._state = self.get_obs_array()
+
+        if self.player == self.enemy:
+            reward = -self.ENEMY_PENALTY
+            print("[BlobEnv] -- Loss!")
+        elif self.player == self.food:
+            print("[BlobEnv] -- Win!")
+            reward = self.FOOD_REWARD
+        else:
+            reward = -self.MOVE_PENALTY
+
+        if reward == self.FOOD_REWARD or reward == -self.ENEMY_PENALTY or self.episode_step >= 200:
+            self._episode_ended = True
+
+        ## Handle Terminal State
+        return np.array(self._state), reward, self._episode_ended, {}
+
+
+    def render(self,mode='rgb_array'):
+        return self.get_obs_array()
+
+    def get_obs_array(self):
+        # starts an rbg of our size
+        env = np.zeros((self.SIZE, self.SIZE, 3), dtype=np.uint8)
+        # sets the food location tile to green color
+        env[self.food.x][self.food.y] = self.d[self.FOOD_N]
+        # sets the enemy location to red
+        env[self.enemy.x][self.enemy.y] = self.d[self.ENEMY_N]
+        # sets the player tile to blue
+        env[self.player.x][self.player.y] = self.d[self.PLAYER_N]
+        return env
+
+    # FOR CNN #
+    def get_image(self):
+        env = self.get_obs_array()
+        img = Image.fromarray(env, 'RGB')  # reading to rgb. Apparently. Even tho color definitions are bgr. ???
+        return img
