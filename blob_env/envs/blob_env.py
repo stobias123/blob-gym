@@ -187,9 +187,6 @@ class BlobEnvNoEnemy(gym.Env):
         self.food = Blob(self.SIZE)
         while self.food == self.player:
             self.food = Blob(self.SIZE)
-        self.enemy = Blob(self.SIZE)
-        while self.enemy == self.player or self.enemy == self.food:
-            self.enemy = Blob(self.SIZE)
 
         self.episode_step = 0
 
@@ -201,11 +198,8 @@ class BlobEnvNoEnemy(gym.Env):
 
         self._state = self.get_obs_array()
 
-        if self.player == self.enemy:
-            reward = -self.ENEMY_PENALTY
-            print("[BlobEnv] -- Loss!")
-        elif self.player == self.food:
-            print("[BlobEnv] -- Win!")
+        if self.player == self.food:
+            #print("[BlobEnv] -- Win!")
             reward = self.FOOD_REWARD
         else:
             reward = -self.MOVE_PENALTY
