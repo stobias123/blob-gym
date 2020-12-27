@@ -33,6 +33,10 @@ from tf_agents.utils import common
 from gym.envs.registration import register
 from gym.envs.registration import register
 
+import tensorflow as tf
+physical_devices = tf.config.list_physical_devices('GPU') 
+tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
 register(
     id='Blob2d-v1',
     entry_point='blob_env.envs.blob_env:BlobEnv')

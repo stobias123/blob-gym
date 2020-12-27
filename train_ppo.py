@@ -49,6 +49,11 @@ register(
     id='Blob2d-v1',
     entry_point='blob_env.envs.blob_env:BlobEnv')
 
+
+import tensorflow as tf
+physical_devices = tf.config.list_physical_devices('GPU') 
+tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
 from tf_agents.agents.ppo import ppo_clip_agent
 from tf_agents.drivers import dynamic_episode_driver
 from tf_agents.environments import parallel_py_environment
